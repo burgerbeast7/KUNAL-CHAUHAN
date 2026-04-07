@@ -49,7 +49,7 @@ The application is modularized and structured for scalable maintenance:
 ### Prerequisites
 
 Ensure you have the following installed on your local machine:
-- Node.js 18+
+- Node.js 20+
 - Git
 
 ### Installation
