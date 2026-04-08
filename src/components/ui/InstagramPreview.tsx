@@ -64,36 +64,36 @@ export default function InstagramPreview() {
             {/* The Preview Card */}
             <div className="glass-card p-6 border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden group">
               {/* Subtle Glowing Pulse in Background */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.02] to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.05] to-transparent pointer-events-none" />
               
               <div className="relative z-10">
                 <div className="flex items-center space-x-4 mb-5">
-                  <div className="relative w-14 h-14 rounded-full p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600">
-                    <div className="bg-black rounded-full p-[2px] w-full h-full">
+                  <div className="relative w-14 h-14 rounded-full p-[1.5px] bg-gradient-to-tr from-gray-400 via-white to-gray-600">
+                    <div className="bg-black rounded-full p-[2px] w-full h-full overflow-hidden">
                       <img 
                         src="/images/profile-headshot.jpeg" 
                         alt="Profile" 
-                        className="w-full h-full object-cover rounded-full"
+                        className="w-full h-full object-cover"
                       />
                     </div>
                   </div>
                   <div>
-                    <h4 className="font-orbitron font-bold text-sm tracking-tight">kunal.3.6.3.4</h4>
+                    <h4 className="font-orbitron font-bold text-sm tracking-tight text-white">kunal.3.6.3.4</h4>
                     <p className="text-[10px] text-white/40 font-sora">Kunal Chauhan</p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 mb-6 text-center border-y border-white/5 py-3">
+                <div className="grid grid-cols-3 gap-2 mb-6 text-center border-y border-white/10 py-3">
                   <div>
-                    <div className="text-xs font-bold font-orbitron">12</div>
+                    <div className="text-xs font-bold font-orbitron text-white">12</div>
                     <div className="text-[8px] text-white/30 uppercase tracking-[0.1em]">Posts</div>
                   </div>
                   <div>
-                    <div className="text-xs font-bold font-orbitron">842</div>
+                    <div className="text-xs font-bold font-orbitron text-white">842</div>
                     <div className="text-[8px] text-white/30 uppercase tracking-[0.1em]">Followers</div>
                   </div>
                   <div>
-                    <div className="text-xs font-bold font-orbitron">456</div>
+                    <div className="text-xs font-bold font-orbitron text-white">456</div>
                     <div className="text-[8px] text-white/30 uppercase tracking-[0.1em]">Following</div>
                   </div>
                 </div>
@@ -102,7 +102,7 @@ export default function InstagramPreview() {
                   href={USER_INFO.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2 bg-white text-black text-[10px] font-bold font-orbitron rounded-lg flex items-center justify-center transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full py-2 bg-white text-black text-[10px] font-bold font-orbitron rounded-lg flex items-center justify-center transition-all hover:bg-gray-200 active:scale-[0.98]"
                 >
                   VIEW INSTAGRAM <ExternalLink size={10} className="ml-2" />
                 </a>

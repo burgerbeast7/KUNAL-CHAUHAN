@@ -16,7 +16,7 @@ export default function Hero() {
   return (
     <section 
       id="hero"
-      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center pt-20"
     >
       <div className="container mx-auto px-6 z-10 text-center">
         <motion.div
