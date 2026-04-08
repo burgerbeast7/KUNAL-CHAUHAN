@@ -19,13 +19,16 @@ export const USER_INFO = {
   name: "Kunal Chauhan",
   title1: "Software Engineer",
   title2: "AI | Full-Stack | Cloud",
-  title3: "AWS AWS Certified",
+  title3: "AWS Certified",
   subtitle: "Full-Stack · Django · React.js · AWS",
+  tagline: "Building intelligent, scalable systems that push the boundaries of modern software engineering.",
   about: "I am a detail-oriented and proactive B.Tech CSE student at HPTU Hamirpur. I specialize in building intelligent applications, merging full-stack development with AI/ML integration and cloud architecture to turn complex ideas into clean, scalable products.",
   email: "kunalchauhan91837@gmail.com",
   github: "https://github.com/burgerbeast7",
   linkedin: "https://linkedin.com/in/kunal-chauhan-7a7539287",
+  instagram: "https://www.instagram.com/kunal.3.6.3.4?igsh=MWZybG9rNnhmN3VmMA==",
   location: "Palampur, Himachal Pradesh, India",
+  resumeUrl: "/Kunal_Chauhan_Resume.pdf",
 };
 
 export const STATISTICS = [
@@ -41,11 +44,13 @@ export const SKILLS = [
   { name: "Flask", category: "Backend", level: 85, icon: "Flask" },
   { name: "React.js", category: "Frontend", level: 88, icon: "React" },
   { name: "JavaScript", category: "Frontend", level: 90, icon: "JS" },
+  { name: "Node.js", category: "Backend", level: 80, icon: "Node" },
   { name: "AWS (EC2/S3)", category: "Cloud", level: 82, icon: "AWS" },
   { name: "PostgreSQL", category: "Database", level: 85, icon: "Postgres" },
   { name: "MongoDB", category: "Database", level: 80, icon: "Mongo" },
   { name: "Docker", category: "DevOps", level: 75, icon: "Docker" },
   { name: "Git", category: "Tools", level: 92, icon: "Git" },
+  { name: "Next.js", category: "Frontend", level: 78, icon: "Next" },
 ];
 
 export const EXPERIENCES = [
@@ -107,7 +112,7 @@ export const PROJECTS = [
     tech: ["Python", "Flask", "OpenAI", "DialoGPT"],
     link: "#",
     github: "https://github.com/burgerbeast7/Burger-Bot",
-    image: "https://images.unsplash.com/photo-1594212699903-ec8a3ecc50f1?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
   },
   {
     title: "Cloud Cost Optimization",

@@ -1,19 +1,55 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 import { USER_INFO, STATISTICS } from "@/lib/data";
-import { User, Code, Server, Cloud } from "lucide-react";
+import { User } from "lucide-react";
+
+function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    const duration = 1500;
+    const steps = 40;
+    const stepValue = value / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += stepValue;
+      if (current >= value) {
+        setCount(value);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, duration / steps);
+    return () => clearInterval(timer);
+  }, [isInView, value]);
+
+  return (
+    <span ref={ref}>
+      {count}{suffix}
+    </span>
+  );
+}
 
 export default function About() {
   return (
     <section id="about" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-black font-orbitron mb-12 text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-4xl md:text-5xl font-black font-orbitron mb-12 text-center"
+        >
           CORE <span className="gradient-text">PROFILE</span>
-        </h2>
+        </motion.h2>
         
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Avatar/Image placeholder with glow */}
+          {/* Avatar/Image with glow */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -26,24 +62,25 @@ export default function About() {
                 src="/images/profile-cinematic.jpeg" 
                 alt={USER_INFO.name}
                 className="w-full h-full object-cover rounded-full filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                loading="lazy"
               />
             </div>
-            {/* Rotating border or element */}
+            {/* Rotating border */}
             <div className="absolute inset-0 -m-4 border border-dashed border-white/10 rounded-full animate-[spin_20s_linear_infinite]" />
           </motion.div>
 
           {/* Description & Stats */}
           <div className="space-y-8">
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="glass-card p-8"
+              className="glass-card p-7 md:p-8"
             >
-              <h3 className="text-2xl font-orbitron text-glow-cyan mb-4 flex items-center">
-                <User size={24} className="mr-2" /> MISSION_STATEMENT
+              <h3 className="text-xl font-orbitron text-white mb-4 flex items-center">
+                <User size={20} className="mr-2" /> MISSION_STATEMENT
               </h3>
-              <p className="text-lg leading-relaxed text-white/70">
+              <p className="text-base leading-relaxed text-white/60">
                 {USER_INFO.about}
               </p>
             </motion.div>
@@ -56,12 +93,12 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:border-glow-purple/40 transition-all duration-300 group"
+                  className="bg-white/5 border border-white/10 rounded-xl p-5 text-center hover:border-white/20 transition-all duration-300 group"
                 >
-                  <div className="text-3xl font-black font-orbitron gradient-text group-hover:scale-110 transition-transform">
-                    {stat.value}{stat.suffix}
+                  <div className="text-2xl md:text-3xl font-black font-orbitron gradient-text group-hover:scale-105 transition-transform">
+                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                   </div>
-                  <div className="text-xs uppercase tracking-widest text-white/40 mt-2">
+                  <div className="text-[10px] md:text-xs uppercase tracking-widest text-white/30 mt-2">
                     {stat.label}
                   </div>
                 </motion.div>

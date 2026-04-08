@@ -3,8 +3,13 @@
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import { USER_INFO } from "@/lib/data";
-import { ArrowDown, Code2, Server, Database, Cloud, Cpu } from "lucide-react";
+import { ArrowDown, Download, Code2, Server, Database, Cloud, Cpu } from "lucide-react";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa6";
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+};
 
 export default function Hero() {
   return (
@@ -19,25 +24,52 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
         >
           {/* Profile Image */}
-          <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-8 group">
+          <motion.div 
+            className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-8 group"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm opacity-75 group-hover:opacity-100 transition-opacity" />
             <img
               src="/images/profile-headshot.jpeg"
               alt="Kunal Chauhan"
               className="relative w-full h-full object-cover rounded-full border-2 border-white/20"
+              loading="eager"
             />
-          </div>
+          </motion.div>
 
-          <span className="text-glow-cyan font-orbitron text-sm md:text-base tracking-[0.2em] uppercase mb-4 block">
-            Welcome to the future of development
-          </span>
+          <motion.span 
+            className="text-glow-cyan font-orbitron text-sm md:text-base tracking-[0.2em] uppercase mb-4 block"
+            {...fadeUp}
+            transition={{ delay: 0.2 }}
+          >
+            Software Engineer | Full Stack Developer
+          </motion.span>
           
-          <h1 className="text-5xl md:text-8xl font-black font-orbitron mb-6">
+          <motion.h1 
+            className="text-5xl md:text-8xl font-black font-orbitron mb-4"
+            {...fadeUp}
+            transition={{ delay: 0.3 }}
+          >
             <span className="block mb-2">I am</span>
             <span className="gradient-text">{USER_INFO.name}</span>
-          </h1>
+          </motion.h1>
 
-          <div className="h-10 md:h-12 text-xl md:text-3xl font-orbitron text-white/80 mb-10">
+          {/* Tagline */}
+          <motion.p
+            className="text-white/50 text-base md:text-lg max-w-xl mx-auto mb-6 font-sora leading-relaxed"
+            {...fadeUp}
+            transition={{ delay: 0.4 }}
+          >
+            {USER_INFO.tagline}
+          </motion.p>
+
+          <motion.div 
+            className="h-10 md:h-12 text-xl md:text-3xl font-orbitron text-white/80 mb-10"
+            {...fadeUp}
+            transition={{ delay: 0.5 }}
+          >
             <span className="mr-2">&gt; </span>
             <Typewriter
               words={[
@@ -53,9 +85,14 @@ export default function Hero() {
               deleteSpeed={50}
               delaySpeed={1500}
             />
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6">
+          <motion.div 
+            className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6"
+            {...fadeUp}
+            transition={{ delay: 0.6 }}
+          >
+            {/* View Projects Button */}
             <motion.a
               href="#projects"
               whileHover={{ scale: 1.05 }}
@@ -66,48 +103,60 @@ export default function Hero() {
                 VIEW PROJECTS
               </span>
             </motion.a>
+
+            {/* Resume Download Button */}
+            <motion.a
+              href={USER_INFO.resumeUrl}
+              download
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group flex items-center space-x-3 px-8 py-4 bg-white/5 border border-white/10 rounded-2xl hover:border-white/30 hover:bg-white/10 transition-all duration-300"
+            >
+              <Download size={18} className="group-hover:animate-bounce" />
+              <span className="font-bold tracking-wider text-sm">DOWNLOAD RESUME</span>
+            </motion.a>
             
+            {/* Social Links */}
             <div className="flex items-center space-x-4">
               {[
-                { icon: FaGithub, href: USER_INFO.github },
-                { icon: FaLinkedin, href: USER_INFO.linkedin },
-                { icon: FaEnvelope, href: `mailto:${USER_INFO.email}` }
+                { icon: FaGithub, href: USER_INFO.github, label: "GitHub" },
+                { icon: FaLinkedin, href: USER_INFO.linkedin, label: "LinkedIn" },
+                { icon: FaEnvelope, href: `mailto:${USER_INFO.email}`, label: "Email" }
               ].map((social, i) => (
                 <motion.a
                   key={i}
                   href={social.href}
-                  target="_blank"
+                  target={social.label !== "Email" ? "_blank" : undefined}
                   rel="noopener noreferrer"
-                  whileHover={{ y: -5, color: "#00F5FF" }}
-                  className="p-3 bg-white/5 border border-white/10 rounded-full hover:border-glow-cyan/50 transition-all duration-300"
+                  aria-label={social.label}
+                  whileHover={{ y: -5 }}
+                  className="p-3 bg-white/5 border border-white/10 rounded-full hover:border-white/30 hover:bg-white/10 transition-all duration-300"
                 >
                   <social.icon size={22} />
                 </motion.a>
               ))}
             </div>
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* Floating Tech Icons */}
+        {/* Floating Tech Icons - Reduced animation complexity */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {[
             { Icon: Code2, x: "10%", y: "20%", delay: 0 },
-            { Icon: Server, x: "85%", y: "15%", delay: 1 },
-            { Icon: Database, x: "15%", y: "70%", delay: 2 },
-            { Icon: Cloud, x: "80%", y: "75%", delay: 3 },
-            { Icon: Cpu, x: "50%", y: "10%", delay: 4 },
+            { Icon: Server, x: "85%", y: "15%", delay: 1.5 },
+            { Icon: Database, x: "15%", y: "70%", delay: 3 },
+            { Icon: Cloud, x: "80%", y: "75%", delay: 4.5 },
+            { Icon: Cpu, x: "50%", y: "10%", delay: 6 },
           ].map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0 }}
               animate={{ 
-                opacity: [0, 0.4, 0],
-                y: [0, -30, 0],
-                rotate: [0, 360],
-                x: [0, 10, 0]
+                opacity: [0, 0.3, 0],
+                y: [0, -20, 0],
               }}
               transition={{ 
-                duration: 8, 
+                duration: 10, 
                 repeat: Infinity, 
                 delay: item.delay,
                 ease: "easeInOut"
@@ -115,7 +164,7 @@ export default function Hero() {
               style={{ left: item.x, top: item.y }}
               className="absolute"
             >
-              <item.Icon className="text-glow-cyan" size={40} strokeWidth={1} />
+              <item.Icon className="text-white/30" size={36} strokeWidth={1} />
             </motion.div>
           ))}
         </div>
@@ -127,7 +176,7 @@ export default function Hero() {
           transition={{ duration: 2, repeat: Infinity }}
         >
           <span className="text-xs uppercase tracking-[0.3em] text-white/40 mb-2">Scroll</span>
-          <ArrowDown className="text-glow-cyan" size={20} />
+          <ArrowDown className="text-white/60" size={20} />
         </motion.div>
       </div>
 

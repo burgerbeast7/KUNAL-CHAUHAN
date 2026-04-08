@@ -1,19 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import Navbar from "@/components/ui/Navbar";
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import Skills from "@/components/sections/Skills";
-import Experience from "@/components/sections/Experience";
-import Projects from "@/components/sections/Projects";
-import Achievements from "@/components/sections/Achievements";
-import Contact from "@/components/sections/Contact";
-import Footer from "@/components/ui/Footer";
-import CustomCursor from "@/components/ui/CustomCursor";
-
 import LoadingScreen from "@/components/ui/LoadingScreen";
+
+// Lazy load below-the-fold sections for performance
+const About = lazy(() => import("@/components/sections/About"));
+const Skills = lazy(() => import("@/components/sections/Skills"));
+const Experience = lazy(() => import("@/components/sections/Experience"));
+const Projects = lazy(() => import("@/components/sections/Projects"));
+const Achievements = lazy(() => import("@/components/sections/Achievements"));
+const Contact = lazy(() => import("@/components/sections/Contact"));
+const Footer = lazy(() => import("@/components/ui/Footer"));
+const CustomCursor = lazy(() => import("@/components/ui/CustomCursor"));
+
+function SectionFallback() {
+  return (
+    <div className="flex items-center justify-center py-20">
+      <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+    </div>
+  );
+}
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,12 +34,20 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Simulate loading time
+    // Reduced to under 2 seconds total
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2800);
+    }, 1800);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  // Enable smooth scrolling globally
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = "smooth";
+    return () => {
+      document.documentElement.style.scrollBehavior = "";
+    };
   }, []);
 
   return (
@@ -39,26 +56,48 @@ export default function Home() {
         {isLoading ? (
           <LoadingScreen key="loading" />
         ) : (
-          <div className="relative z-0">
-            <CustomCursor />
+          <motion.div
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="relative z-0"
+          >
+            <Suspense fallback={null}>
+              <CustomCursor />
+            </Suspense>
 
             <Navbar />
             <div className="content-wrapper">
               <Hero />
-              <About />
-              <Skills />
-              <Experience />
-              <Projects />
-              <Achievements />
-              <Contact />
-              <Footer />
+              <Suspense fallback={<SectionFallback />}>
+                <About />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Skills />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Experience />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Projects />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Achievements />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Contact />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Footer />
+              </Suspense>
             </div>
             {/* Scroll Progress Indicator */}
             <motion.div 
               className="fixed top-0 left-0 right-0 h-px z-[60] origin-left bg-white" 
               style={{ scaleX }} 
             />
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </main>

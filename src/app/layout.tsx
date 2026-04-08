@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Orbitron, Sora } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -6,17 +6,36 @@ import { cn } from "@/lib/utils";
 const orbitron = Orbitron({ 
   subsets: ["latin"], 
   variable: "--font-orbitron",
+  display: "swap",
 });
 
 const sora = Sora({ 
   subsets: ["latin"], 
   variable: "--font-sora",
+  display: "swap",
 });
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "Kunal Chauhan | Full-Stack Software Engineer",
-  description: "Futuristic portfolio of Kunal Chauhan, a Full-Stack Software Engineer specialized in Django, React.js, and AWS.",
-  keywords: ["Software Engineer", "Kunal Chauhan", "Django", "React.js", "AWS", "Full-Stack", "Portfolio"],
+  description: "Portfolio of Kunal Chauhan — Full-Stack Software Engineer specialized in Django, React.js, AWS, and AI/ML. Building intelligent, scalable systems.",
+  keywords: ["Software Engineer", "Kunal Chauhan", "Django", "React.js", "AWS", "Full-Stack", "Portfolio", "Python", "Node.js", "MongoDB"],
+  authors: [{ name: "Kunal Chauhan" }],
+  openGraph: {
+    title: "Kunal Chauhan | Full-Stack Software Engineer",
+    description: "Full-Stack Software Engineer specialized in Django, React.js, AWS, and AI/ML.",
+    type: "website",
+    locale: "en_US",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
