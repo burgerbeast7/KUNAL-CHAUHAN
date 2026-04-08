@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 import { USER_INFO } from "@/lib/data";
+import InstagramPreview from "@/components/ui/InstagramPreview";
 
 const NavLinks = [
   { name: "About", href: "#about" },
@@ -128,6 +129,7 @@ export default function Navbar() {
             >
               <FaLinkedin size={18} />
             </motion.a>
+            <InstagramPreview />
           </div>
         </div>
 
@@ -170,6 +172,7 @@ export default function Navbar() {
                 <a href={USER_INFO.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub /></a>
                 <a href={USER_INFO.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
                 <a href={`mailto:${USER_INFO.email}`} aria-label="Email"><FaEnvelope /></a>
+                <InstagramPreview />
               </div>
             </div>
           </motion.div>

@@ -5,6 +5,7 @@ import { Typewriter } from "react-simple-typewriter";
 import { USER_INFO } from "@/lib/data";
 import { ArrowDown, Download, Code2, Server, Database, Cloud, Cpu } from "lucide-react";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa6";
+import InstagramPreview from "@/components/ui/InstagramPreview";
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -135,6 +136,7 @@ export default function Hero() {
                   <social.icon size={22} />
                 </motion.a>
               ))}
+              <InstagramPreview />
             </div>
           </motion.div>
         </motion.div>

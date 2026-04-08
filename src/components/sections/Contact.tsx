@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
-import { FaGithub, FaLinkedin, FaEnvelope, FaLocationDot } from "react-icons/fa6";
+import { FaGithub, FaLinkedin, FaEnvelope, FaLocationDot, FaInstagram } from "react-icons/fa6";
 import { USER_INFO } from "@/lib/data";
+import InstagramPreview from "@/components/ui/InstagramPreview";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -84,6 +85,16 @@ export default function Contact() {
                   </div>
                 </a>
 
+                <a href={USER_INFO.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-5 group cursor-pointer">
+                  <div className="p-3.5 bg-white/5 border border-white/10 rounded-xl group-hover:bg-white/10 group-hover:border-white/20 transition-all duration-300 flex-shrink-0">
+                    <FaInstagram className="text-white/70" size={20} />
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase tracking-widest text-white/30 mb-1 block font-orbitron">Visual Matrix</span>
+                    <span className="text-sm md:text-base font-medium group-hover:text-white transition-colors text-white/70">Instagram Profile</span>
+                  </div>
+                </a>
+
                 <div className="flex items-center space-x-5 group">
                   <div className="p-3.5 bg-white/5 border border-white/10 rounded-xl flex-shrink-0">
                     <FaLocationDot className="text-white/70" size={20} />
@@ -114,6 +125,7 @@ export default function Contact() {
                   <Icon size={22} />
                 </motion.a>
               ))}
+              <InstagramPreview />
             </div>
           </motion.div>
 

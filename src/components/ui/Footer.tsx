@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronUp } from "lucide-react";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa6";
 import { USER_INFO } from "@/lib/data";
+import InstagramPreview from "@/components/ui/InstagramPreview";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -31,24 +32,25 @@ export default function Footer() {
         </p>
 
         <div className="flex justify-center space-x-5 mb-10">
-          {[
-            { Icon: FaGithub, href: USER_INFO.github, label: "GitHub" },
-            { Icon: FaLinkedin, href: USER_INFO.linkedin, label: "LinkedIn" },
-            { Icon: FaEnvelope, href: `mailto:${USER_INFO.email}`, label: "Email" },
-          ].map(({ Icon, href, label }, i) => (
-            <motion.a 
-              key={i}
-              href={href}
-              target={label !== "Email" ? "_blank" : undefined}
-              rel="noopener noreferrer"
-              aria-label={label}
-              whileHover={{ y: -4, scale: 1.1 }}
-              className="p-3 bg-white/5 border border-white/10 rounded-full hover:border-white/25 transition-all duration-300"
-            >
-              <Icon size={18} />
-            </motion.a>
-          ))}
-        </div>
+            { [
+              { Icon: FaGithub, href: USER_INFO.github, label: "GitHub" },
+              { Icon: FaLinkedin, href: USER_INFO.linkedin, label: "LinkedIn" },
+              { Icon: FaEnvelope, href: `mailto:${USER_INFO.email}`, label: "Email" },
+            ].map(({ Icon, href, label }, i) => (
+              <motion.a 
+                key={i}
+                href={href}
+                target={label !== "Email" ? "_blank" : undefined}
+                rel="noopener noreferrer"
+                aria-label={label}
+                whileHover={{ y: -4, scale: 1.1 }}
+                className="p-3 bg-white/5 border border-white/10 rounded-full hover:border-white/25 transition-all duration-300 flex items-center justify-center"
+              >
+                <Icon size={18} />
+              </motion.a>
+            ))}
+            <InstagramPreview />
+          </div>
 
         <div className="text-[10px] uppercase tracking-widest text-white/15 mb-8 border-t border-white/5 pt-8 font-orbitron">
           © {new Date().getFullYear()} Kunal Chauhan | SYSTEM_READY_V2.0
