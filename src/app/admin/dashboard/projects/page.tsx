@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Plus, Edit2, Trash2, X } from "lucide-react";
+import ImageCropper from "@/components/ui/ImageCropper";
 
 type Project = {
   _id: string;
@@ -148,9 +149,22 @@ export default function AdminProjects() {
                   <input required type="url" value={formData.github} onChange={e => setFormData({...formData, github: e.target.value})} className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50" />
                 </div>
               </div>
-              <div>
-                <label className="block text-sm text-white/70 mb-1">Image URL</label>
-                <input required type="text" value={formData.image} onChange={e => setFormData({...formData, image: e.target.value})} className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50" />
+              <div className="space-y-4">
+                <label className="block text-sm text-white/70">Project Cover Image</label>
+                {formData.image && (
+                  <div className="relative w-full h-32 rounded-xl overflow-hidden border border-white/10 bg-black">
+                    <img src={formData.image} alt="Project Preview" className="w-full h-full object-cover" />
+                  </div>
+                )}
+                <ImageCropper 
+                  label="Upload & Crop Project Image" 
+                  aspectRatio={16/9} 
+                  onCropComplete={(base64) => setFormData({...formData, image: base64})} 
+                />
+                <div className="pt-2">
+                  <p className="text-white/30 text-xs mb-1">Or provide URL:</p>
+                  <input required type="text" value={formData.image} onChange={e => setFormData({...formData, image: e.target.value})} placeholder="Image URL (e.g. /images/project.jpg or https://...)" className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white text-sm" />
+                </div>
               </div>
               
               <div className="pt-4">

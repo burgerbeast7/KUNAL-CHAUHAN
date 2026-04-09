@@ -62,7 +62,7 @@ export default function Projects() {
                 {/* Image Section */}
                 <div className="relative h-56 md:h-72 overflow-hidden bg-white/[0.03]">
                   <Image 
-                    src={project.image && (project.image.startsWith('http') || project.image.startsWith('/')) ? project.image : "/images/profile-cinematic.jpeg"} 
+                    src={project.image && (project.image.startsWith('http') || project.image.startsWith('/') || project.image.startsWith('data:')) ? project.image : "/images/profile-cinematic.jpeg"} 
                     alt={project.title} 
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"

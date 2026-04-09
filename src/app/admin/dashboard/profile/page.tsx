@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { User, Save, Loader2 } from "lucide-react";
 import { USER_INFO } from "@/lib/data";
+import ImageCropper from "@/components/ui/ImageCropper";
 
 export default function AdminProfile() {
   const [loading, setLoading] = useState(true);
@@ -142,17 +143,34 @@ export default function AdminProfile() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-6 border-y border-white/5">
             <div className="space-y-4">
               <label className="block text-sm font-orbitron text-white/70">Main Profile Photo (Hero)</label>
-              <div className="relative w-32 h-32 rounded-full overflow-hidden border-2 border-white/20 bg-black">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden border-2 border-white/20 bg-black mb-4 flex-shrink-0">
                 <img src={formData.profileImage} alt="Profile Preview" className="w-full h-full object-cover" />
               </div>
-              <input required type="text" value={formData.profileImage} onChange={e => setFormData({...formData, profileImage: e.target.value})} placeholder="Image URL (e.g. /images/profile.jpg)" className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white text-xs" />
+              <ImageCropper 
+                label="Upload & Crop Headshot" 
+                aspectRatio={1} 
+                onCropComplete={(base64) => setFormData({...formData, profileImage: base64})} 
+              />
+              <div className="pt-2">
+                <p className="text-white/30 text-xs mb-1">Or provide URL:</p>
+                <input required type="text" value={formData.profileImage} onChange={e => setFormData({...formData, profileImage: e.target.value})} placeholder="Image URL (e.g. /images/profile.jpg)" className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white text-xs" />
+              </div>
             </div>
+            
             <div className="space-y-4">
               <label className="block text-sm font-orbitron text-white/70">About Page Cinematic Photo</label>
-              <div className="relative w-full h-32 rounded-xl overflow-hidden border border-white/10 bg-black">
+              <div className="relative w-full h-32 rounded-xl overflow-hidden border border-white/10 bg-black mb-4">
                 <img src={formData.aboutImage} alt="About Preview" className="w-full h-full object-cover" />
               </div>
-              <input required type="text" value={formData.aboutImage} onChange={e => setFormData({...formData, aboutImage: e.target.value})} placeholder="Image URL (e.g. /images/about.jpg)" className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white text-xs" />
+              <ImageCropper 
+                label="Upload & Crop Cinematic" 
+                aspectRatio={16/9} 
+                onCropComplete={(base64) => setFormData({...formData, aboutImage: base64})} 
+              />
+              <div className="pt-2">
+                <p className="text-white/30 text-xs mb-1">Or provide URL:</p>
+                <input required type="text" value={formData.aboutImage} onChange={e => setFormData({...formData, aboutImage: e.target.value})} placeholder="Image URL (e.g. /images/about.jpg)" className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white text-xs" />
+              </div>
             </div>
           </div>
 
