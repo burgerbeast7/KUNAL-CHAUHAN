@@ -17,9 +17,25 @@ const NavLinks = [
 ];
 
 export default function Navbar() {
+  const [profile, setProfile] = useState(USER_INFO);
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch("/api/profile");
+        const json = await res.json();
+        if (json.success && json.data) {
+          setProfile(json.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +90,7 @@ export default function Navbar() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          KUNAL.C
+          {profile.name.toUpperCase()}
         </motion.a>
 
         {/* Desktop Menu */}
@@ -106,7 +122,7 @@ export default function Navbar() {
           ))}
           <div className="flex items-center space-x-2 ml-4 border-l border-white/10 pl-4">
             <motion.a 
-              href={USER_INFO.github}
+              href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
@@ -118,7 +134,7 @@ export default function Navbar() {
               <FaGithub size={18} />
             </motion.a>
             <motion.a 
-              href={USER_INFO.linkedin}
+              href={profile.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -169,9 +185,9 @@ export default function Navbar() {
                 </a>
               ))}
               <div className="flex items-center space-x-6 pt-4 border-t border-white/10">
-                <a href={USER_INFO.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub /></a>
-                <a href={USER_INFO.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
-                <a href={`mailto:${USER_INFO.email}`} aria-label="Email"><FaEnvelope /></a>
+                <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub /></a>
+                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
+                <a href={`mailto:${profile.email}`} aria-label="Email"><FaEnvelope /></a>
                 <InstagramPreview />
               </div>
             </div>

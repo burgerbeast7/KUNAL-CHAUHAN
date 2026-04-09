@@ -1,10 +1,28 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { EXPERIENCES } from "@/lib/data";
 import { Briefcase, Calendar, CheckCircle2 } from "lucide-react";
 
 export default function Experience() {
+  const [expList, setExpList] = useState(EXPERIENCES);
+
+  useEffect(() => {
+    const fetchExp = async () => {
+      try {
+        const res = await fetch("/api/experience");
+        const data = await res.json();
+        if (data.success && data.data.length > 0) {
+          setExpList(data.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch experiences:", error);
+      }
+    };
+    fetchExp();
+  }, []);
+
   return (
     <section id="experience" className="py-24 overflow-hidden relative">
       <div className="container mx-auto px-6">
@@ -34,7 +52,7 @@ export default function Experience() {
           <div className="md:hidden absolute left-6 top-0 h-full w-px bg-gradient-to-b from-white/20 via-white/10 to-transparent" />
           
           <div className="space-y-16 md:space-y-24">
-            {EXPERIENCES.map((exp, i) => (
+            {expList.map((exp, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}

@@ -6,7 +6,26 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa6";
 import { USER_INFO } from "@/lib/data";
 import InstagramPreview from "@/components/ui/InstagramPreview";
 
+import { useState, useEffect } from "react";
+
 export default function Footer() {
+  const [profile, setProfile] = useState(USER_INFO);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch("/api/profile");
+        const json = await res.json();
+        if (json.success && json.data) {
+          setProfile(json.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    };
+    fetchProfile();
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -21,7 +40,7 @@ export default function Footer() {
           className="mb-10 inline-block relative"
         >
           <div className="text-3xl md:text-4xl font-black font-orbitron gradient-text relative z-10">
-            KUNAL.CHAUHAN
+            {profile.name.toUpperCase()}
           </div>
           <div className="absolute -inset-4 bg-white/5 blur-[30px] rounded-full animate-pulse" />
         </motion.div>
@@ -33,9 +52,9 @@ export default function Footer() {
 
         <div className="flex justify-center space-x-5 mb-10">
             { [
-              { Icon: FaGithub, href: USER_INFO.github, label: "GitHub" },
-              { Icon: FaLinkedin, href: USER_INFO.linkedin, label: "LinkedIn" },
-              { Icon: FaEnvelope, href: `mailto:${USER_INFO.email}`, label: "Email" },
+              { Icon: FaGithub, href: profile.github, label: "GitHub" },
+              { Icon: FaLinkedin, href: profile.linkedin, label: "LinkedIn" },
+              { Icon: FaEnvelope, href: `mailto:${profile.email}`, label: "Email" },
             ].map(({ Icon, href, label }, i) => (
               <motion.a 
                 key={i}
@@ -53,7 +72,7 @@ export default function Footer() {
           </div>
 
         <div className="text-[10px] uppercase tracking-widest text-white/15 mb-8 border-t border-white/5 pt-8 font-orbitron">
-          © {new Date().getFullYear()} Kunal Chauhan | SYSTEM_READY_V2.0
+          © {new Date().getFullYear()} {profile.name} | SYSTEM_READY_V2.0
         </div>
 
         <motion.button

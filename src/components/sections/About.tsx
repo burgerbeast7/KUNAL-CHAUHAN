@@ -37,6 +37,23 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export default function About() {
+  const [profile, setProfile] = useState(USER_INFO);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch("/api/profile");
+        const json = await res.json();
+        if (json.success && json.data) {
+          setProfile(json.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    };
+    fetchProfile();
+  }, []);
+
   return (
     <section id="about" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
@@ -61,8 +78,8 @@ export default function About() {
               <div className="absolute inset-0 bg-white/5 z-0" />
               <div className="relative w-full h-full rounded-full overflow-hidden">
                 <Image 
-                  src="/images/profile-cinematic.jpeg" 
-                  alt={USER_INFO.name}
+                  src={profile.aboutImage || "/images/profile-cinematic.jpeg"} 
+                  alt={profile.name}
                   fill
                   className="object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
                   loading="lazy"
@@ -85,7 +102,7 @@ export default function About() {
                 <User size={20} className="mr-2" /> MISSION_STATEMENT
               </h3>
               <p className="text-base leading-relaxed text-white/60">
-                {USER_INFO.about}
+                {profile.about}
               </p>
             </motion.div>
 

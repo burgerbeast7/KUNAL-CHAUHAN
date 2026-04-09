@@ -1,12 +1,30 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { PROJECTS } from "@/lib/data";
+import { PROJECTS as STATIC_PROJECTS } from "@/lib/data";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 
 export default function Projects() {
+  const [projects, setProjects] = useState(STATIC_PROJECTS);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch("/api/projects");
+        const json = await res.json();
+        if (json.success && json.data && json.data.length > 0) {
+          setProjects(json.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      }
+    };
+    fetchProjects();
+  }, []);
+
   return (
     <section id="projects" className="py-24 relative overflow-hidden bg-white/[0.01]">
       <div className="container mx-auto px-6">
@@ -30,7 +48,7 @@ export default function Projects() {
         </motion.p>
         
         <div className="grid md:grid-cols-2 gap-10">
-          {PROJECTS.map((project, i) => (
+          {projects.map((project, i) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 40 }}
@@ -44,7 +62,7 @@ export default function Projects() {
                 {/* Image Section */}
                 <div className="relative h-56 md:h-72 overflow-hidden bg-white/[0.03]">
                   <Image 
-                    src={project.image} 
+                    src={project.image && (project.image.startsWith('http') || project.image.startsWith('/')) ? project.image : "/images/profile-cinematic.jpeg"} 
                     alt={project.title} 
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"

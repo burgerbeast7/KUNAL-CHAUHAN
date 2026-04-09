@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
@@ -14,6 +15,22 @@ const fadeUp = {
 };
 
 export default function Hero() {
+  const [profile, setProfile] = useState(USER_INFO);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch("/api/profile");
+        const json = await res.json();
+        if (json.success && json.data) {
+          setProfile(json.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    };
+    fetchProfile();
+  }, []);
   return (
     <section 
       id="hero"
@@ -35,8 +52,8 @@ export default function Hero() {
             <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm opacity-75 group-hover:opacity-100 transition-opacity" />
             <div className="relative w-full h-full rounded-full border-2 border-white/20 overflow-hidden">
               <Image
-                src="/images/profile-headshot.jpeg"
-                alt="Kunal Chauhan"
+                src={profile.profileImage || "/images/profile-headshot.jpeg"}
+                alt={profile.name}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                 priority
@@ -58,7 +75,7 @@ export default function Hero() {
             transition={{ delay: 0.3 }}
           >
             <span className="block mb-2">I am</span>
-            <span className="gradient-text">{USER_INFO.name}</span>
+            <span className="gradient-text">{profile.name}</span>
           </motion.h1>
 
           {/* Tagline */}
@@ -67,7 +84,7 @@ export default function Hero() {
             {...fadeUp}
             transition={{ delay: 0.4 }}
           >
-            {USER_INFO.tagline}
+            {profile.tagline}
           </motion.p>
 
           <motion.div 
@@ -111,7 +128,7 @@ export default function Hero() {
 
             {/* Resume Download Button */}
             <motion.a
-              href={USER_INFO.resumeUrl}
+              href={profile.resumeUrl}
               download
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -124,9 +141,9 @@ export default function Hero() {
             {/* Social Links */}
             <div className="flex items-center space-x-4">
               {[
-                { icon: FaGithub, href: USER_INFO.github, label: "GitHub" },
-                { icon: FaLinkedin, href: USER_INFO.linkedin, label: "LinkedIn" },
-                { icon: FaEnvelope, href: `mailto:${USER_INFO.email}`, label: "Email" }
+                { icon: FaGithub, href: profile.github, label: "GitHub" },
+                { icon: FaLinkedin, href: profile.linkedin, label: "LinkedIn" },
+                { icon: FaEnvelope, href: `mailto:${profile.email}`, label: "Email" }
               ].map((social, i) => (
                 <motion.a
                   key={i}

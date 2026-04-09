@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SKILLS } from "@/lib/data";
 import { Code2, Server, Cloud, Database, Cpu, Terminal, Smartphone } from "lucide-react";
@@ -18,14 +18,30 @@ const getIcon = (category: string) => {
   }
 };
 
-const categories = ["All", ...Array.from(new Set(SKILLS.map(s => s.category)))];
-
 export default function Skills() {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [skillsList, setSkillsList] = useState(SKILLS);
+
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const res = await fetch("/api/skills");
+        const data = await res.json();
+        if (data.success && data.data.length > 0) {
+          setSkillsList(data.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch skills:", error);
+      }
+    };
+    fetchSkills();
+  }, []);
+
+  const categories = ["All", ...Array.from(new Set(skillsList.map(s => s.category)))];
 
   const filteredSkills = activeFilter === "All" 
-    ? SKILLS 
-    : SKILLS.filter(s => s.category === activeFilter);
+    ? skillsList 
+    : skillsList.filter(s => s.category === activeFilter);
 
   return (
     <section id="skills" className="py-24 bg-white/[0.02]">
