@@ -28,7 +28,7 @@ export const USER_INFO = {
   linkedin: "https://linkedin.com/in/kunal-chauhan-7a7539287",
   instagram: "https://www.instagram.com/kunal.3.6.3.4?igsh=MWZybG9rNnhmN3VmMA==",
   location: "Palampur, Himachal Pradesh, India",
-  resumeUrl: "/Kunal_Chauhan_Resume.pdf",
+  resumeUrl: "/KunalChauhan_Resume.pdf",
 };
 
 export const STATISTICS = [
