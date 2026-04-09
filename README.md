@@ -1,10 +1,11 @@
 <div align="center">
   <h1>KUNAL CHAUHAN — Portfolio 🚀</h1>
-  <p>A minimal, futuristic, black & white creative portfolio website built with Next.js 16, Framer Motion, and Tailwind CSS.</p>
+  <p>A minimal, futuristic, black & white creative portfolio website built with Next.js 16, Framer Motion, Tailwind CSS, and a fully dynamic MongoDB Admin Dashboard.</p>
 
   ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white)
   ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=for-the-badge&logo=typescript&logoColor=white)
   ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+  ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
   ![Framer Motion](https://img.shields.io/badge/Framer_Motion-white?style=for-the-badge&logo=framer&logoColor=black)
 
   <h3><a href="https://kunal-chauhan.onrender.com">🔴 Live Demo</a></h3>
@@ -16,11 +17,14 @@
 
 This portfolio embodies my philosophy of "less is more." Moving away from heavy components, this project relies on a pure black background with contrasting white and gray monochromes, elevated by subtle interactive effects and smooth Framer Motion animations. 
 
+In its latest V2 iteration, the portfolio has evolved from a static site into a **fully dynamic web application** powered by MongoDB, featuring a secure Admin Dashboard where all content (Projects, Skills, Experience, and Profile Photos) can be managed and cropped in real-time.
+
 ## 🌟 Key Features
 
+- **Integrated Admin Dashboard** — A secure, built-in CMS at `/admin` to add, edit, or delete projects, skills, and experiences without touching the codebase.
+- **In-Browser Image Cropper** — Features a cinematic local UI to upload and perfectly frame your profile and project thumbnails directly within the admin panel.
 - **Minimalist Aesthetic** — Pure black background with a monochrome color scheme that prioritizes readability and high contrast.
 - **Dynamic Animations** — Powered by Framer Motion, featuring smooth scroll reveals, a custom typing effect, floating tech icons, and slick hover transitions.
-- **Custom Cursor** — An interactive white cursor that reacts to links and clickable elements.
 - **Responsive Layout** — Flawless scaling from mobile devices to ultrawide desktop monitors.
 - **SEO & Performance** — Built with Next.js App Router for server-side rendering, top-tier performance, and optimized metadata.
 
@@ -30,18 +34,18 @@ The application is modularized and structured for scalable maintenance:
 
 | Section | Location | Description |
 |:---|:---|:---|
-| **Navigation** | `ui/Navbar.tsx` | Fixed top-bar with smooth scrolling links and custom styling |
-| **Hero** | `sections/Hero.tsx` | Central headshot, animated typing roles, and floating tech icons |
-| **About** | `sections/About.tsx` | Concise bio with professional statistics |
-| **Skills** | `sections/Skills.tsx` | Animated tech stack progress bars |
-| **Experience**| `sections/Experience.tsx` | Alternating timeline for career history |
-| **Projects** | `sections/Projects.tsx` | Project grid with external live/GitHub links |
+| **Public Portfolio** | `src/app/page.tsx` | Main portfolio page comprising Hero, About, Skills, Experience, and Projects components. |
+| **Admin Dashboard** | `src/app/admin/*` | Secure admin interface to manage content directly linked to MongoDB. |
+| **REST APIs** | `src/app/api/*` | API routes handling public content fetching and protected CRUD operations. |
+| **Database Models**| `src/models/*` | Mongoose schemas defining structural data layers. |
 
 ## 🛠️ Technology Stack
 
 - **Framework**: `Next.js 16` (App Router)
+- **Database**: `MongoDB` & `Mongoose`
 - **Language**: `TypeScript`
 - **Styling**: `Tailwind CSS`, `globals.css`
+- **Image Editing**: `react-easy-crop`
 - **Interactivity & Animation**: `Framer Motion`, `react-simple-typewriter`
 - **Iconography**: `lucide-react`, `react-icons` (FontAwesome 6)
 - **Typography**: `Orbitron` (Futuristic headings), `Sora` (Clean body text)
@@ -53,13 +57,22 @@ The application is modularized and structured for scalable maintenance:
 Ensure you have the following installed on your local machine:
 - Node.js 20+
 - Git
+- MongoDB URI (for database configuration)
+
+### Environment Setup
+Create a `.env` file in the root directory with the following keys:
+```env
+MONGODB_URI=your_mongodb_connection_string
+ADMIN_PASSWORD=your_secure_password
+JWT_SECRET_KEY=your_secure_jwt_secret
+```
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/burgerbeast7/KUNAL-CHAUHAN.git
-   cd KUNAL-CHAUHAN
+   cd portfolio
    ```
 
 2. **Install dependencies**
@@ -73,17 +86,19 @@ Ensure you have the following installed on your local machine:
    ```
 
 4. **View in browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+   Navigate to [http://localhost:3000](http://localhost:3000) for the main site.
+   Navigate to [http://localhost:3000/admin](http://localhost:3000/admin) to manage content.
 
 ## 🌐 Deployment
 
 This application is configured for seamless deployment on cloud platforms like [Render](https://render.com/) or Vercel.
 
 **Render Deployment Steps:**
-1. Connect your GitHub repository: `burgerbeast7/KUNAL-CHAUHAN`.
-2. Set the build command: `npm install && npm run build`
-3. Set the start command: `npm start`
-4. Deploy as a Node Web Service.
+1. Connect your GitHub repository.
+2. Ensure you have added your `MONGODB_URI`, `ADMIN_PASSWORD`, and `JWT_SECRET_KEY` inside Render Environment variables!
+3. Set the build command: `npm install && npm run build`
+4. Set the start command: `npm start`
+5. Deploy as a Node Web Service.
 
 ## 👤 Connect with Me
 
