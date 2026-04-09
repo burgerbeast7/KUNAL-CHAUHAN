@@ -13,10 +13,10 @@ export default function LoadingScreen() {
           clearInterval(timer);
           return 100;
         }
-        // Accelerated: reaches 100% in ~1.5 seconds (100 steps × 15ms)
-        return prev + 2;
+        // Supercharged: reaches 100% in ~500ms (25 steps × 20ms)
+        return prev + 4;
       });
-    }, 15);
+    }, 20);
 
     return () => clearInterval(timer);
   }, []);

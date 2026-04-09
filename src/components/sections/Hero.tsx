@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import { USER_INFO } from "@/lib/data";
@@ -32,12 +33,15 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm opacity-75 group-hover:opacity-100 transition-opacity" />
-            <img
-              src="/images/profile-headshot.jpeg"
-              alt="Kunal Chauhan"
-              className="relative w-full h-full object-cover rounded-full border-2 border-white/20"
-              loading="eager"
-            />
+            <div className="relative w-full h-full rounded-full border-2 border-white/20 overflow-hidden">
+              <Image
+                src="/images/profile-headshot.jpeg"
+                alt="Kunal Chauhan"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                priority
+              />
+            </div>
           </motion.div>
 
           <motion.span 

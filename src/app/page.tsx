@@ -34,10 +34,10 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Reduced to under 2 seconds total
+    // Significantly reduced to under 1 second for "blink in fast" feel
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1800);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, []);

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { PROJECTS } from "@/lib/data";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
@@ -42,15 +43,12 @@ export default function Projects() {
               <div className="glass-card overflow-hidden hover:border-white/20 transition-all duration-500">
                 {/* Image Section */}
                 <div className="relative h-56 md:h-72 overflow-hidden bg-white/[0.03]">
-                  <img 
+                  <Image 
                     src={project.image} 
                     alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
                     loading="lazy"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      target.style.display = 'none';
-                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent opacity-70 group-hover:opacity-40 transition-opacity duration-500" />
                   

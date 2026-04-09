@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 import { USER_INFO, STATISTICS } from "@/lib/data";
 import { User } from "lucide-react";
 
@@ -58,12 +59,15 @@ export default function About() {
           >
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border border-white/20 p-2">
               <div className="absolute inset-0 bg-white/5 z-0" />
-              <img 
-                src="/images/profile-cinematic.jpeg" 
-                alt={USER_INFO.name}
-                className="w-full h-full object-cover rounded-full filter grayscale group-hover:grayscale-0 transition-all duration-500"
-                loading="lazy"
-              />
+              <div className="relative w-full h-full rounded-full overflow-hidden">
+                <Image 
+                  src="/images/profile-cinematic.jpeg" 
+                  alt={USER_INFO.name}
+                  fill
+                  className="object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                  loading="lazy"
+                />
+              </div>
             </div>
             {/* Rotating border */}
             <div className="absolute inset-0 -m-4 border border-dashed border-white/10 rounded-full animate-[spin_20s_linear_infinite]" />

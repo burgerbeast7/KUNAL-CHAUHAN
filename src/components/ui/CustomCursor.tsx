@@ -13,6 +13,12 @@ const CustomCursor = () => {
   const springY = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    // Disable on touch devices and mobile screens
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isMobile = window.innerWidth < 768;
+    
+    if (isTouchDevice || isMobile) return;
+
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);

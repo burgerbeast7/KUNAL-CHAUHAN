@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { FaInstagram } from "react-icons/fa6";
 import { USER_INFO } from "@/lib/data";
 import { ExternalLink } from "lucide-react";
@@ -69,13 +70,14 @@ export default function InstagramPreview() {
               <div className="relative z-10">
                 <div className="flex items-center space-x-4 mb-5">
                   <div className="relative w-14 h-14 rounded-full p-[1.5px] bg-gradient-to-tr from-gray-400 via-white to-gray-600">
-                    <div className="bg-black rounded-full p-[2px] w-full h-full overflow-hidden">
-                      <img 
-                        src="/images/profile-headshot.jpeg" 
-                        alt="Profile" 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+                      <div className="relative w-full h-full overflow-hidden">
+                        <Image 
+                          src="/images/profile-headshot.jpeg" 
+                          alt="Profile" 
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                   </div>
                   <div>
                     <h4 className="font-orbitron font-bold text-sm tracking-tight text-white">kunal.3.6.3.4</h4>
