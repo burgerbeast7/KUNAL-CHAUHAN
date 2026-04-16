@@ -51,7 +51,7 @@ export default function Contact() {
             viewport={{ once: true }}
             className="space-y-10"
           >
-            <div className="glass-card p-8 md:p-10 hover:border-white/15 transition-all duration-300">
+            <div className="glass-card p-6 md:p-10 hover:border-white/15 transition-all duration-300">
               <h3 className="text-xl font-orbitron font-bold mb-8">CONTACT DETAILS</h3>
               
               <div className="space-y-6">
@@ -135,7 +135,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <form onSubmit={handleSubmit} className="glass-card p-8 md:p-10 space-y-7 hover:border-white/15 transition-all duration-500">
+            <form onSubmit={handleSubmit} className="glass-card p-6 md:p-10 space-y-7 hover:border-white/15 transition-all duration-500">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase tracking-widest text-white/30 ml-3 font-orbitron">Codename</label>

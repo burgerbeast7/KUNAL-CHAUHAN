@@ -81,7 +81,7 @@ export default function Projects() {
                 </div>
 
                 {/* Content Section */}
-                <div className="p-7 md:p-8">
+                <div className="p-6 md:p-8">
                   <div className="flex justify-between items-start mb-4">
                     <h3 className="text-xl md:text-2xl font-orbitron font-bold group-hover:text-white transition-colors">
                       {project.title}

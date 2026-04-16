@@ -70,7 +70,7 @@ export default function Hero() {
           </motion.span>
           
           <motion.h1 
-            className="text-5xl md:text-8xl font-black font-orbitron mb-4"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black font-orbitron mb-4"
             {...fadeUp}
             transition={{ delay: 0.3 }}
           >
@@ -88,7 +88,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.div 
-            className="h-10 md:h-12 text-xl md:text-3xl font-orbitron text-white/80 mb-10"
+            className="h-12 md:h-12 text-lg sm:text-xl md:text-3xl font-orbitron text-white/80 mb-10"
             {...fadeUp}
             transition={{ delay: 0.5 }}
           >
@@ -110,7 +110,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div 
-            className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6"
+            className="flex flex-col md:flex-row items-center justify-center gap-4 w-full"
             {...fadeUp}
             transition={{ delay: 0.6 }}
           >
@@ -119,9 +119,9 @@ export default function Hero() {
               href="#projects"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="gradient-border group"
+              className="gradient-border group w-full sm:w-80 md:w-auto"
             >
-              <span className="bg-background/80 block px-10 py-4 rounded-[15px] group-hover:bg-transparent transition-all duration-300 font-bold tracking-wider">
+              <span className="bg-background/80 block px-6 sm:px-10 py-4 w-full rounded-[15px] group-hover:bg-transparent transition-all duration-300 font-bold tracking-wider text-center">
                 VIEW PROJECTS
               </span>
             </motion.a>
@@ -132,14 +132,14 @@ export default function Hero() {
               download
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group flex items-center space-x-3 px-8 py-4 bg-white/5 border border-white/10 rounded-2xl hover:border-white/30 hover:bg-white/10 transition-all duration-300"
+              className="group flex flex-1 items-center justify-center space-x-3 w-full sm:w-80 px-8 py-4 bg-white/5 border border-white/10 rounded-2xl hover:border-white/30 hover:bg-white/10 transition-all duration-300"
             >
               <Download size={18} className="group-hover:animate-bounce" />
-              <span className="font-bold tracking-wider text-sm">DOWNLOAD RESUME</span>
+              <span className="font-bold tracking-wider text-sm whitespace-nowrap">DOWNLOAD RESUME</span>
             </motion.a>
             
             {/* Social Links */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center justify-center gap-4 w-full sm:w-auto mt-2 md:mt-0">
               {[
                 { icon: FaGithub, href: profile.github, label: "GitHub" },
                 { icon: FaLinkedin, href: profile.linkedin, label: "LinkedIn" },

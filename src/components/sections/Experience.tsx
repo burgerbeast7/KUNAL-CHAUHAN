@@ -59,20 +59,20 @@ export default function Experience() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className={`relative flex items-start md:items-center justify-between w-full ${i % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}
+                className={`relative flex items-start md:items-center justify-between w-full mb-12 md:mb-0 ${i % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}
               >
                 {/* Timeline Dot */}
                 <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.3)] z-10" />
                 {/* Mobile dot */}
                 <div className="md:hidden absolute left-6 -translate-x-1/2 w-3 h-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.3)] z-10 top-10" />
                 
-                <div className={`w-full md:w-[45%] ml-10 md:ml-0 glass-card p-8 md:p-10 hover:border-white/20 transition-all duration-300 relative group overflow-hidden`}>
+                <div className={`w-full md:w-[45%] ml-12 md:ml-0 glass-card p-6 md:p-10 hover:border-white/20 transition-all duration-300 relative group overflow-hidden`}>
                   <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                     <Briefcase size={80} />
                   </div>
 
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className="p-3 bg-white/5 border border-white/10 rounded-xl flex-shrink-0">
+                  <div className="flex items-start md:items-center space-x-4 mb-4">
+                    <div className="p-3 bg-white/5 border border-white/10 rounded-xl flex-shrink-0 mt-1 md:mt-0">
                       <Briefcase size={22} className="text-white/80" />
                     </div>
                     <div>
