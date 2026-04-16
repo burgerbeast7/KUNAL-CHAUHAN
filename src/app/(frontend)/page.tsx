@@ -4,7 +4,6 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import Navbar from "@/components/ui/Navbar";
 import Hero from "@/components/sections/Hero";
-import LoadingScreen from "@/components/ui/LoadingScreen";
 
 // Lazy load below-the-fold sections for performance
 const About = lazy(() => import("@/components/sections/About"));
@@ -25,22 +24,12 @@ function SectionFallback() {
 }
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
-
-  useEffect(() => {
-    // Significantly reduced to under 1 second for "blink in fast" feel
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   // Enable smooth scrolling globally
   useEffect(() => {
@@ -52,17 +41,12 @@ export default function Home() {
 
   return (
     <main className="relative bg-black min-h-screen text-white">
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <LoadingScreen key="loading" />
-        ) : (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="relative z-0"
-          >
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative z-0"
+      >
             <Suspense fallback={null}>
               <CustomCursor />
             </Suspense>
@@ -98,8 +82,6 @@ export default function Home() {
               style={{ scaleX }} 
             />
           </motion.div>
-        )}
-      </AnimatePresence>
     </main>
   );
 }
