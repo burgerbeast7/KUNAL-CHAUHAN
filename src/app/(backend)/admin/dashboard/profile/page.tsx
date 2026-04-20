@@ -24,7 +24,7 @@ export default function AdminProfile() {
     resumeUrl: USER_INFO.resumeUrl,
     profileImage: "/images/profile-headshot.jpeg",
     aboutImage: "/images/profile-cinematic.jpeg",
-    spotifyTracks: ["6I9VzXbGqGWE1bf052nO48", "0VjIjW4GlUZAMYd2vXMi3b", "2ZRo7axmMPeSVUvDbGkJah", ""] as string[]
+    spotifyTracks: ["6I9VzXbGqGWE1bf052nO48", "0VjIjW4GlUZAMYd2vXMi3b", "2ZRo7axmMPeSVUvDbGkJah", "", ""] as string[]
   });
 
   useEffect(() => {
@@ -38,8 +38,8 @@ export default function AdminProfile() {
       if (data.success && data.data) {
         
         let loadedTracks = data.data.spotifyTracks || ["6I9VzXbGqGWE1bf052nO48", "0VjIjW4GlUZAMYd2vXMi3b", "2ZRo7axmMPeSVUvDbGkJah"];
-        // Ensure there are exactly 4 slots minimum
-        while (loadedTracks.length < 4) { loadedTracks.push(""); }
+        // Ensure there are exactly 5 slots minimum
+        while (loadedTracks.length < 5) { loadedTracks.push(""); }
         
         setFormData({
           ...data.data,
