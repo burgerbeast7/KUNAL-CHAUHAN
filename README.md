@@ -34,9 +34,9 @@ The application is modularized and structured for scalable maintenance:
 
 | Section | Location | Description |
 |:---|:---|:---|
-| **Public Portfolio** | `src/app/page.tsx` | Main portfolio page comprising Hero, About, Skills, Experience, and Projects components. |
-| **Admin Dashboard** | `src/app/admin/*` | Secure admin interface to manage content directly linked to MongoDB. |
-| **REST APIs** | `src/app/api/*` | API routes handling public content fetching and protected CRUD operations. |
+| **Public Portfolio** | `src/app/(frontend)/*` | Multi-page portfolio application comprising individual elegant routes (e.g., `/about`, `/skills`, `/projects`). |
+| **Admin Dashboard** | `src/app/(backend)/admin/*` | Secure admin interface to manage content directly linked to MongoDB. |
+| **REST APIs** | `src/app/(backend)/api/*` | API routes handling public content fetching and protected CRUD operations. |
 | **Database Models**| `src/models/*` | Mongoose schemas defining structural data layers. |
 
 ## 🛠️ Technology Stack
@@ -99,6 +99,9 @@ This application is configured for seamless deployment on cloud platforms like [
 3. Set the build command: `npm install && npm run build`
 4. Set the start command: `npm start`
 5. Deploy as a Node Web Service.
+
+⚡ **Note on Render Free Tier Performance:**  
+Included natively within this repository is a GitHub Action (`keep-alive.yml`) that automatically pings the Render server every 14 minutes. This completely bypasses Render's standard 15-minute inactivity shutdown, ensuring your portfolio opens **instantly** (0ms cold start) 24/7 without requiring third-party tools like UptimeRobot!
 
 ## 👤 Connect with Me
 
