@@ -24,7 +24,7 @@ export default function AdminProfile() {
     resumeUrl: USER_INFO.resumeUrl,
     profileImage: "/images/profile-headshot.jpeg",
     aboutImage: "/images/profile-cinematic.jpeg",
-    spotifyTracks: "6I9VzXbGqGWE1bf052nO48,0VjIjW4GlUZAMYd2vXMi3b,2ZRo7axmMPeSVUvDbGkJah"
+    spotifyTracks: ["6I9VzXbGqGWE1bf052nO48", "0VjIjW4GlUZAMYd2vXMi3b", "2ZRo7axmMPeSVUvDbGkJah", ""] as string[]
   });
 
   useEffect(() => {
@@ -36,9 +36,14 @@ export default function AdminProfile() {
       const res = await fetch("/api/admin/profile");
       const data = await res.json();
       if (data.success && data.data) {
+        
+        let loadedTracks = data.data.spotifyTracks || ["6I9VzXbGqGWE1bf052nO48", "0VjIjW4GlUZAMYd2vXMi3b", "2ZRo7axmMPeSVUvDbGkJah"];
+        // Ensure there are exactly 4 slots minimum
+        while (loadedTracks.length < 4) { loadedTracks.push(""); }
+        
         setFormData({
           ...data.data,
-          spotifyTracks: data.data.spotifyTracks ? data.data.spotifyTracks.join(",") : "6I9VzXbGqGWE1bf052nO48,0VjIjW4GlUZAMYd2vXMi3b,2ZRo7axmMPeSVUvDbGkJah"
+          spotifyTracks: loadedTracks
         });
       }
     } catch (error) {
@@ -52,9 +57,15 @@ export default function AdminProfile() {
     e.preventDefault();
     setSaving(true);
     try {
+      const parsedTracks = formData.spotifyTracks.map(str => {
+        if (!str) return "";
+        const match = str.match(/track\/([a-zA-Z0-9]+)/);
+        return match ? match[1] : str.trim();
+      }).filter(Boolean);
+
       const payload = {
         ...formData,
-        spotifyTracks: formData.spotifyTracks.split(",").map(id => id.trim()).filter(Boolean)
+        spotifyTracks: parsedTracks
       };
       await fetch("/api/admin/profile", {
         method: "POST",
@@ -187,10 +198,25 @@ export default function AdminProfile() {
             <input required type="text" value={formData.resumeUrl} onChange={e => setFormData({...formData, resumeUrl: e.target.value})} className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white" />
           </div>
 
-          <div>
-            <label className="block text-sm text-white/70 mb-2">Spotify Top Tracks (Comma-separated Track IDs)</label>
-            <p className="text-white/30 text-xs mb-2">Grab the ID from the Spotify link: open.spotify.com/track/<strong>YOUR_ID</strong></p>
-            <input required type="text" value={formData.spotifyTracks} onChange={e => setFormData({...formData, spotifyTracks: e.target.value})} placeholder="e.g. 6I9VzXbGqGWE1bf052nO48, 0VjIjW4GlUZAMYd2vXMi3b" className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white" />
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-bold text-white/90 mb-1">Spotify Top Tracks (Paste Full Links)</label>
+              <p className="text-white/40 text-xs mb-3">Just paste the full Spotify URL (e.g. open.spotify.com/track/...) and the system will automatically extract the ID!</p>
+            </div>
+            {formData.spotifyTracks && formData.spotifyTracks.map((track, i) => (
+              <input 
+                key={i} 
+                type="text" 
+                value={track} 
+                onChange={e => {
+                  const newArray = [...formData.spotifyTracks];
+                  newArray[i] = e.target.value;
+                  setFormData({...formData, spotifyTracks: newArray});
+                }} 
+                placeholder={`Spotify Song Link #${i + 1}`} 
+                className="w-full px-4 py-3 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white" 
+              />
+            ))}
           </div>
         </div>
 
