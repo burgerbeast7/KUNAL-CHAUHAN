@@ -21,8 +21,9 @@ In its latest V2 iteration, the portfolio has evolved from a static site into a 
 
 ## 🌟 Key Features
 
-- **Integrated Admin Dashboard** — A secure, built-in CMS at `/admin` to add, edit, or delete projects, skills, and experiences without touching the codebase.
-- **In-Browser Image Cropper** — Features a cinematic local UI to upload and perfectly frame your profile and project thumbnails directly within the admin panel.
+- **Integrated Admin Dashboard** — A secure, built-in CMS at `/admin` to add, edit, or delete projects, skills, and experiences. Features Next.js 15+ compatible Promise-resolved dynamic routing architectures.
+- **In-Browser Image Cropper** — cinematic local UI to upload and perfectly frame your profile and project thumbnails directly within the admin panel.
+- **Auto-Suggest Emoji & Icon Support** — Render custom emojis or dynamic image icons seamlessly with a native HTML5 `<datalist>` auto-suggest implementation.
 - **Minimalist Aesthetic** — Pure black background with a monochrome color scheme that prioritizes readability and high contrast.
 - **Dynamic Animations** — Powered by Framer Motion, featuring smooth scroll reveals, a custom typing effect, floating tech icons, and slick hover transitions.
 - **Responsive Layout** — Flawless scaling from mobile devices to ultrawide desktop monitors.
