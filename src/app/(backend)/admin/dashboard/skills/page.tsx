@@ -142,7 +142,26 @@ export default function AdminSkills() {
               </div>
               <div>
                 <label className="block text-sm text-white/70 mb-1">Icon (Emoji or URL)</label>
-                <input required type="text" value={formData.icon} onChange={e => setFormData({...formData, icon: e.target.value})} className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white" />
+                <input required list="icon-presets" type="text" value={formData.icon} onChange={e => setFormData({...formData, icon: e.target.value})} className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white" placeholder="e.g. 🐍, ⚛️, or https://..." />
+                <datalist id="icon-presets">
+                  <option value="🐍">Python</option>
+                  <option value="⚡">Django/Bolt</option>
+                  <option value="⚛️">React</option>
+                  <option value="🟨">JavaScript</option>
+                  <option value="🟩">Node.js</option>
+                  <option value="☁️">Cloud/AWS</option>
+                  <option value="🐘">PostgreSQL</option>
+                  <option value="🍃">MongoDB</option>
+                  <option value="🐳">Docker</option>
+                  <option value="🔥">Next.js/Flame</option>
+                  <option value="🎨">Tailwind</option>
+                  <option value="💻">Code/TypeScript</option>
+                  <option value="🚀">Git/Deploy</option>
+                  <option value="📱">Mobile</option>
+                  <option value="⚙️">Backend/Gears</option>
+                  <option value="📊">Database/Data</option>
+                  <option value="🛠️">Tools</option>
+                </datalist>
               </div>
               
               <div className="pt-4">

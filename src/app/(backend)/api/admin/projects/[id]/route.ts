@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongoose";
 import Project from "@/models/Project";
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params;
     await connectToDatabase();
     const body = await req.json();
 
@@ -11,7 +12,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       body.tech = body.tech.split(',').map((t: string) => t.trim());
     }
 
-    const project = await Project.findByIdAndUpdate(params.id, body, { new: true });
+    const project = await Project.findByIdAndUpdate(id, body, { new: true });
     
     if (!project) {
       return NextResponse.json({ success: false, error: "Project not found" }, { status: 404 });
@@ -23,10 +24,11 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params;
     await connectToDatabase();
-    const project = await Project.findByIdAndDelete(params.id);
+    const project = await Project.findByIdAndDelete(id);
     
     if (!project) {
       return NextResponse.json({ success: false, error: "Project not found" }, { status: 404 });

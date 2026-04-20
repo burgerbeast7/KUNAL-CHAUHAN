@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongoose";
 import Experience from "@/models/Experience";
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params;
     await connectToDatabase();
     const body = await req.json();
 
@@ -11,7 +12,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       body.achievements = body.achievements.split('\n').map((a: string) => a.trim()).filter(Boolean);
     }
 
-    const experience = await Experience.findByIdAndUpdate(params.id, body, { new: true });
+    const experience = await Experience.findByIdAndUpdate(id, body, { new: true });
     
     if (!experience) {
       return NextResponse.json({ success: false, error: "Experience not found" }, { status: 404 });
@@ -23,10 +24,11 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params;
     await connectToDatabase();
-    const experience = await Experience.findByIdAndDelete(params.id);
+    const experience = await Experience.findByIdAndDelete(id);
     
     if (!experience) {
       return NextResponse.json({ success: false, error: "Experience not found" }, { status: 404 });

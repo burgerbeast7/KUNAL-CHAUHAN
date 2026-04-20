@@ -109,8 +109,14 @@ export default function Skills() {
                   <div className="glass-card p-5 md:p-8 flex flex-col items-center justify-center space-y-3 md:space-y-4 hover:border-white/20 hover:bg-white/[0.04] transition-all duration-300 relative overflow-hidden h-full">
                     <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full -mr-10 -mt-10 transition-all duration-500 group-hover:scale-[3]" />
                     
-                    <div className="p-3 md:p-4 bg-background border border-white/5 rounded-2xl group-hover:bg-white/[0.06] group-hover:border-white/20 transition-all duration-300 z-10">
-                      <IconComponent size={24} className="text-white/70 group-hover:text-white transition-colors md:w-7 md:h-7" />
+                    <div className="p-3 md:p-4 bg-background border border-white/5 rounded-2xl group-hover:bg-white/[0.06] group-hover:border-white/20 transition-all duration-300 z-10 flex items-center justify-center">
+                      {skill.icon?.startsWith("http") || skill.icon?.startsWith("/") ? (
+                        <img src={skill.icon} alt={skill.name} className="w-6 h-6 md:w-7 md:h-7 object-contain opacity-70 group-hover:opacity-100 transition-opacity" />
+                      ) : skill.icon && skill.icon.length <= 4 ? (
+                        <span className="text-2xl md:text-3xl opacity-80 group-hover:opacity-100 transition-opacity">{skill.icon}</span>
+                      ) : (
+                        <IconComponent size={24} className="text-white/70 group-hover:text-white transition-colors md:w-7 md:h-7" />
+                      )}
                     </div>
                     
                     <h4 className="font-orbitron font-bold text-lg group-hover:text-white transition-colors z-10">
