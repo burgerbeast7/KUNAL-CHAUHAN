@@ -62,9 +62,11 @@ export default function AdminProfile() {
     e.preventDefault();
     setSaving(true);
     try {
+      // Extremely robust auto-parser for desktop, iOS, and Android Spotify links
       const parsedTracks = formData.spotifyTracks.map(str => {
         if (!str) return "";
-        const match = str.match(/track\/([a-zA-Z0-9]+)/);
+        // Match standard links or URI schemas, and grab exactly 22 alphanumeric characters
+        const match = str.match(/(?:track\/|track:)([a-zA-Z0-9]{22})/);
         return match ? match[1] : str.trim();
       }).filter(Boolean);
 
@@ -211,7 +213,11 @@ export default function AdminProfile() {
             {formData.spotifyTracks && formData.spotifyTracks.map((track, i) => (
               <input 
                 key={i} 
-                type="text" 
+                type="url" 
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="none"
+                spellCheck={false}
                 value={track} 
                 onChange={e => {
                   const newArray = [...formData.spotifyTracks];
