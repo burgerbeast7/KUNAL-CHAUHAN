@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import { USER_INFO } from "@/lib/data";
@@ -115,16 +116,18 @@ export default function Hero() {
             transition={{ delay: 0.6 }}
           >
             {/* View Projects Button */}
-            <motion.a
-              href="#projects"
+            <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="gradient-border group w-full sm:w-80 md:w-auto"
             >
-              <span className="bg-background/80 block px-6 sm:px-10 py-4 w-full rounded-[15px] group-hover:bg-transparent transition-all duration-300 font-bold tracking-wider text-center">
+              <Link
+                href="/projects"
+                className="bg-background/80 block px-6 sm:px-10 py-4 w-full rounded-[15px] group-hover:bg-transparent transition-all duration-300 font-bold tracking-wider text-center"
+              >
                 VIEW PROJECTS
-              </span>
-            </motion.a>
+              </Link>
+            </motion.div>
 
             {/* Resume Download Button */}
             <motion.a

@@ -1,27 +1,10 @@
 "use client";
 
-import { useState, useEffect, lazy, Suspense } from "react";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { useEffect, Suspense } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "@/components/ui/Navbar";
 import Hero from "@/components/sections/Hero";
-
-// Lazy load below-the-fold sections for performance
-const About = lazy(() => import("@/components/sections/About"));
-const Skills = lazy(() => import("@/components/sections/Skills"));
-const Experience = lazy(() => import("@/components/sections/Experience"));
-const Projects = lazy(() => import("@/components/sections/Projects"));
-const Achievements = lazy(() => import("@/components/sections/Achievements"));
-const Contact = lazy(() => import("@/components/sections/Contact"));
-const Footer = lazy(() => import("@/components/ui/Footer"));
-const CustomCursor = lazy(() => import("@/components/ui/CustomCursor"));
-
-function SectionFallback() {
-  return (
-    <div className="flex items-center justify-center py-20">
-      <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-    </div>
-  );
-}
+import CustomCursor from "@/components/ui/CustomCursor";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
@@ -47,41 +30,20 @@ export default function Home() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative z-0"
       >
-            <Suspense fallback={null}>
-              <CustomCursor />
-            </Suspense>
+        <Suspense fallback={null}>
+          <CustomCursor />
+        </Suspense>
 
-            <Navbar />
-            <div className="content-wrapper">
-              <Hero />
-              <Suspense fallback={<SectionFallback />}>
-                <About />
-              </Suspense>
-              <Suspense fallback={<SectionFallback />}>
-                <Skills />
-              </Suspense>
-              <Suspense fallback={<SectionFallback />}>
-                <Experience />
-              </Suspense>
-              <Suspense fallback={<SectionFallback />}>
-                <Projects />
-              </Suspense>
-              <Suspense fallback={<SectionFallback />}>
-                <Achievements />
-              </Suspense>
-              <Suspense fallback={<SectionFallback />}>
-                <Contact />
-              </Suspense>
-              <Suspense fallback={<SectionFallback />}>
-                <Footer />
-              </Suspense>
-            </div>
-            {/* Scroll Progress Indicator */}
-            <motion.div 
-              className="fixed top-0 left-0 right-0 h-px z-[60] origin-left bg-white" 
-              style={{ scaleX }} 
-            />
-          </motion.div>
+        <Navbar />
+        <div className="content-wrapper">
+          <Hero />
+        </div>
+        {/* Scroll Progress Indicator */}
+        <motion.div 
+          className="fixed top-0 left-0 right-0 h-px z-[60] origin-left bg-white" 
+          style={{ scaleX }} 
+        />
+      </motion.div>
     </main>
   );
 }
