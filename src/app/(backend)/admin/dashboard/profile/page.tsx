@@ -24,7 +24,7 @@ export default function AdminProfile() {
     resumeUrl: USER_INFO.resumeUrl,
     profileImage: "/images/profile-headshot.jpeg",
     aboutImage: "/images/profile-cinematic.jpeg",
-    spotifyTracks: ["6I9VzXbGqGWE1bf052nO48", "0VjIjW4GlUZAMYd2vXMi3b", "2ZRo7axmMPeSVUvDbGkJah", "", ""] as string[]
+    spotifyTracks: ["", "", "", "", ""] as string[]
   });
 
   useEffect(() => {
@@ -36,11 +36,16 @@ export default function AdminProfile() {
       const res = await fetch("/api/admin/profile");
       const data = await res.json();
       if (data.success && data.data) {
+        let loadedTracks = data.data.spotifyTracks || ["", "", "", "", ""];
         
-        let loadedTracks = data.data.spotifyTracks || ["6I9VzXbGqGWE1bf052nO48", "0VjIjW4GlUZAMYd2vXMi3b", "2ZRo7axmMPeSVUvDbGkJah"];
         // Ensure there are exactly 5 slots minimum
         while (loadedTracks.length < 5) { loadedTracks.push(""); }
         
+        // Map back to full URL format so users see what they pasted
+        loadedTracks = loadedTracks.map((trackId: string) => 
+          trackId ? `https://open.spotify.com/track/${trackId}` : ""
+        );
+
         setFormData({
           ...data.data,
           spotifyTracks: loadedTracks
