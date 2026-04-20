@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { USER_INFO, STATISTICS } from "@/lib/data";
-import { User } from "lucide-react";
+import { User, Music } from "lucide-react";
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef(null);
@@ -125,6 +125,28 @@ export default function About() {
                 </motion.div>
               ))}
             </div>
+
+            {/* Spotify Widget */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="glass-card p-6"
+            >
+              <h3 className="text-sm font-orbitron text-white/70 mb-4 flex items-center uppercase tracking-widest">
+                <Music size={16} className="mr-2" /> Current Top Tracks
+              </h3>
+              <div className="space-y-3">
+                {/* 
+                  Replace the IDs in the src URLs below with your own Spotify Track IDs.
+                  To get an ID, copy the Spotify song link (e.g., https://open.spotify.com/track/YOUR_ID)
+                */}
+                <iframe style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/track/6I9VzXbGqGWE1bf052nO48?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/track/0VjIjW4GlUZAMYd2vXMi3b?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/track/2ZRo7axmMPeSVUvDbGkJah?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
