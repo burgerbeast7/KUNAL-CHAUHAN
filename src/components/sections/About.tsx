@@ -138,13 +138,23 @@ export default function About() {
                 <Music size={16} className="mr-2" /> Current Top Tracks
               </h3>
               <div className="space-y-3">
-                {/* 
-                  Replace the IDs in the src URLs below with your own Spotify Track IDs.
-                  To get an ID, copy the Spotify song link (e.g., https://open.spotify.com/track/YOUR_ID)
-                */}
-                <iframe style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/track/6I9VzXbGqGWE1bf052nO48?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <iframe style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/track/0VjIjW4GlUZAMYd2vXMi3b?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <iframe style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/track/2ZRo7axmMPeSVUvDbGkJah?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                {profile.spotifyTracks && profile.spotifyTracks.length > 0 ? (
+                  profile.spotifyTracks.map((trackId: string, idx: number) => (
+                    <iframe 
+                      key={idx}
+                      style={{ borderRadius: '12px' }} 
+                      src={`https://open.spotify.com/embed/track/${trackId}?utm_source=generator&theme=0`} 
+                      width="100%" 
+                      height="80" 
+                      frameBorder="0" 
+                      allowFullScreen 
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                      loading="lazy"
+                    />
+                  ))
+                ) : (
+                  <div className="text-white/40 text-sm text-center py-4">No top tracks selected yet. Add them in the Admin Panel!</div>
+                )}
               </div>
             </motion.div>
           </div>

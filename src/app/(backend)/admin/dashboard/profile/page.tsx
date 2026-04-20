@@ -24,6 +24,7 @@ export default function AdminProfile() {
     resumeUrl: USER_INFO.resumeUrl,
     profileImage: "/images/profile-headshot.jpeg",
     aboutImage: "/images/profile-cinematic.jpeg",
+    spotifyTracks: "6I9VzXbGqGWE1bf052nO48,0VjIjW4GlUZAMYd2vXMi3b,2ZRo7axmMPeSVUvDbGkJah"
   });
 
   useEffect(() => {
@@ -35,7 +36,10 @@ export default function AdminProfile() {
       const res = await fetch("/api/admin/profile");
       const data = await res.json();
       if (data.success && data.data) {
-        setFormData(data.data);
+        setFormData({
+          ...data.data,
+          spotifyTracks: data.data.spotifyTracks ? data.data.spotifyTracks.join(",") : "6I9VzXbGqGWE1bf052nO48,0VjIjW4GlUZAMYd2vXMi3b,2ZRo7axmMPeSVUvDbGkJah"
+        });
       }
     } catch (error) {
       console.error("Failed to fetch profile:", error);
@@ -48,10 +52,14 @@ export default function AdminProfile() {
     e.preventDefault();
     setSaving(true);
     try {
+      const payload = {
+        ...formData,
+        spotifyTracks: formData.spotifyTracks.split(",").map(id => id.trim()).filter(Boolean)
+      };
       await fetch("/api/admin/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
       alert("Profile updated successfully!");
     } catch (error) {
@@ -177,6 +185,12 @@ export default function AdminProfile() {
           <div>
             <label className="block text-sm text-white/70 mb-2">Resume URL / Path</label>
             <input required type="text" value={formData.resumeUrl} onChange={e => setFormData({...formData, resumeUrl: e.target.value})} className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white" />
+          </div>
+
+          <div>
+            <label className="block text-sm text-white/70 mb-2">Spotify Top Tracks (Comma-separated Track IDs)</label>
+            <p className="text-white/30 text-xs mb-2">Grab the ID from the Spotify link: open.spotify.com/track/<strong>YOUR_ID</strong></p>
+            <input required type="text" value={formData.spotifyTracks} onChange={e => setFormData({...formData, spotifyTracks: e.target.value})} placeholder="e.g. 6I9VzXbGqGWE1bf052nO48, 0VjIjW4GlUZAMYd2vXMi3b" className="w-full px-4 py-2 bg-black border border-white/10 rounded-lg outline-none focus:border-white/50 text-white" />
           </div>
         </div>
 

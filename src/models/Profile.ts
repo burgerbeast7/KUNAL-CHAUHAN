@@ -16,6 +16,7 @@ export interface IProfile extends Document {
   resumeUrl: string;
   profileImage: string;
   aboutImage: string;
+  spotifyTracks: string[];
 }
 
 const ProfileSchema: Schema = new Schema({
@@ -34,6 +35,7 @@ const ProfileSchema: Schema = new Schema({
   resumeUrl: { type: String, required: true },
   profileImage: { type: String, required: true, default: "/images/profile-headshot.jpeg" },
   aboutImage: { type: String, required: true, default: "/images/profile-cinematic.jpeg" },
+  spotifyTracks: { type: [String], default: ["6I9VzXbGqGWE1bf052nO48", "0VjIjW4GlUZAMYd2vXMi3b", "2ZRo7axmMPeSVUvDbGkJah"] },
 }, { timestamps: true });
 
 export default mongoose.models.Profile || mongoose.model<IProfile>('Profile', ProfileSchema);
